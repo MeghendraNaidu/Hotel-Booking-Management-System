@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="home" id="home">
+    <div class="head_container">
+        <div class="box">
+            <div class="text">
+                <h2>Welcome to Hotel Ichiraku</h2>
+                <div class="right">
+                    <p>Immerse yourself in the pinnacle of luxury, where every detail is designed to cater to your comfort and sophistication. From elegantly appointed rooms to world-class service, our hotel offers an unforgettable experience for those seeking the finest in hospitality.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="image">
+            <!-- Properly reference static images with url_for -->
+            <img src="{{ url_for('static', filename='img/home2.jpg') }}" class="slide" alt="Hotel Ichiraku">
+        </div>
+
+        <div class="image_item">
+            <!-- Clicking on each image changes the main image -->
+            <img src="{{ url_for('static', filename='img/home1.jpg') }}" alt="Image 1" class="slide" onclick="img('{{ url_for('static', filename='img/home1.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home2.jpg') }}" alt="Image 2" class="slide" onclick="img('{{ url_for('static', filename='img/home2.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home3.jpg') }}" alt="Image 3" class="slide" onclick="img('{{ url_for('static', filename='img/home3.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home4.jpg') }}" alt="Image 4" class="slide" onclick="img('{{ url_for('static', filename='img/home4.jpg') }}')">
+        </div>
+
+        <div class="role-selection">
+            <!-- Use Flask's url_for for dynamic URL generation -->
+            <a href="{{ url_for('admin_login') }}" class="button">Login as Admin</a>
+            <a href="{{ url_for('user_login') }}" class="button">Login as User</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    function img(imageSrc) {
+        // Change the src of the main image when a thumbnail is clicked
+        document.querySelector('.image img').src = imageSrc;
+    }
+
+    function change(backgroundColor) {
+        // Change the background color dynamically
+        const line = document.querySelector('.image');
+        line.style.background = backgroundColor;
+    }
+</script>
+
+<section class="gallary mtop" id="gallary">
+    <div class="container">
+        <div class="heading_top flex1">
+            <div class="heading">
+                <h4>WELCOME TO OUR PHOTO GALLERY</h4>
+                <h1>Photo Gallery of Our Hotel</h1>
+            </div>
+            <div class="button">
+                <button class="btn1">VIEW GALLERY</button>
+            </div>
+        </div>
+        
+        <div class="owl-carousel owl-theme">
+            {% for i in range(1, 8) %}
+                <div class="item">
+                    <img src="{{ url_for('static', filename='img/g' ~ i ~ '.jpg') }}" alt="Gallery Image {{ i }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+</script>
+
+    <script>
+        $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                dots: false,
+                navText: ["<i class='fas fa-chevron-left'></i>", "<i class='fas fa-chevron-right'></i>"],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            });
+    </script>
+
+    <section class="map top">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.9953118165145!2d80.13717377358783!3d12.908022616271975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525f26488ca8f3%3A0xb32659962cde7fe5!2sBhaarath%20Medical%20College%20And%20Hospital%2C%20Chennai!5e0!3m2!1sen!2sin!4v1731386948926!5m2!1sen!2sin" width="600" height="450" style="border:0;" 
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+{% endblock %}
+

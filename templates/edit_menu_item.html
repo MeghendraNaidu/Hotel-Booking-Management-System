@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Edit Menu Item</h1>
+<form method="POST" action="">
+    <label>Item Name:</label>
+    <input type="text" name="item_name" value="{{ menu_item[1] }}" required>
+    <label>Price:</label>
+    <input type="number" name="item_price" step="0.01" value="{{ menu_item[2] }}" required>
+    <label>Category:</label>
+    <input type="text" name="item_category" value="{{ menu_item[3] }}" required>
+    <label>Availability:</label>
+    <select name="availability">
+        <option value="Available" {% if menu_item[4] == 'Available' %} selected {% endif %}>Available</option>
+        <option value="Unavailable" {% if menu_item[4] == 'Unavailable' %} selected {% endif %}>Unavailable</option>
+    </select>
+    <button type="submit">Update Item</button>
+</form>
+
+
+{% endblock %}

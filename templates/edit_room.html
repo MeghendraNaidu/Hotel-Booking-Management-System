@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Edit Room</h2>
+
+    <form method="POST" action="">
+
+        <label>Room Number:</label>
+        <input type="text" name="room_number" value="{{ room['room_number'] }}" required>
+
+        <label>Room Type:</label>
+        <select name="room_type" required>
+            <option value="Single" {% if room['room_type'] == 'Single' %} selected {% endif %}>Single</option>
+            <option value="Double" {% if room['room_type'] == 'Double' %} selected {% endif %}>Double</option>
+            <option value="Suite" {% if room['room_type'] == 'Suite' %} selected {% endif %}>Suite</option>
+        </select>
+
+        <label>Room Rate:</label>
+        <select name="room_rate" required>
+            <option value="1500.00" {% if room['room_rate'] == 1500.00 %} selected {% endif %}>Single - ₹1500</option>
+            <option value="2000.00" {% if room['room_rate'] == 2000.00 %} selected {% endif %}>Double - ₹2000</option>
+            <option value="2500.00" {% if room['room_rate'] == 2500.00 %} selected {% endif %}>Suite - ₹2500</option>
+        </select>
+
+        <label>Availability:</label>
+        <select name="is_available">
+            <option value="True" {% if room['is_available'] %} selected {% endif %}>Available</option>
+            <option value="False" {% if not room['is_available'] %} selected {% endif %}>Unavailable</option>
+        </select>
+
+        <label>Clean Status:</label>
+        <select name="clean_status">
+            <option value="Clean" {% if room['clean_status'] == 'Clean' %} selected {% endif %}>Clean</option>
+            <option value="Dirty" {% if room['clean_status'] == 'Dirty' %} selected {% endif %}>Dirty</option>
+        </select>
+
+        <button type="submit">Update Room</button>
+
+    </form>
+
+{% endblock %}

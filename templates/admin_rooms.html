@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Room Management</h2>
+
+    <!-- Add New Room Form -->
+    <form method="POST" action="">
+
+        <h3>Add New Room</h3>
+
+        <label>Room Number:</label>
+        <input type="text" name="room_number" required>
+
+        <label>Room Type:</label>
+        <select name="room_type" required>
+            <option value="Single">Single</option>
+            <option value="Double">Double</option>
+            <option value="Suite">Suite</option>
+        </select>
+
+        <label>Room Rate:</label>
+        <select name="room_rate" required>
+            <option value="1500.00">₹1500.00</option>
+            <option value="2000.00">₹2000.00</option>
+            <option value="2500.00">₹2500.00</option>
+        </select>
+
+        <label>Availability:</label>
+        <select name="is_available">
+            <option value="True">Available</option>
+            <option value="False">Unavailable</option>
+        </select>
+
+        <label>Clean Status:</label>
+        <select name="clean_status">
+            <option value="Clean">Clean</option>
+            <option value="Dirty">Dirty</option>
+        </select>
+
+        <button type="submit">Add Room</button>
+
+    </form>
+
+    <!-- Display Rooms -->
+    <h3>Room List</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Room ID</th>
+                <th>Room Number</th>
+                <th>Room Type</th>
+                <th>Room Rate</th>
+                <th>Availability</th>
+                <th>Clean Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+            <tr>
+                <td>{{ room['room_id'] }}</td> <!-- room_id -->
+                <td>{{ room['room_number'] }}</td> <!-- room_number -->
+                <td>{{ room['room_type'] }}</td> <!-- room_type -->
+                <td>{{ room['room_rate'] }}</td> <!-- room_rate -->
+                <td>{{ 'Available' if room['is_available'] else 'Unavailable' }}</td> <!-- is_available -->
+                <td>{{ room['clean_status'] }}</td> <!-- clean_status -->
+                <td>
+                    <a href="{{ url_for('edit_room', room_id=room['room_id']) }}">Update Room</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

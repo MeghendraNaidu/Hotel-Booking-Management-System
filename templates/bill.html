@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Room Booking Bill</h2>
+
+    <p><strong>Customer Name:</strong> {{ customer_name }}</p>
+    <p><strong>Room Type:</strong> {{ room_type }}</p>
+    <p><strong>Room No:</strong> {{ room_number }}</p>
+
+    <table>
+        <tr>
+            <th>Description</th>
+            <th>Amount</th>
+        </tr>
+        <tr>
+            <td><strong>Room Cost ({{ number_of_days }} days at ${{ room_rate }} per day):</strong></td>
+            <td>${{ room_cost }}</td>
+        </tr>
+        <tr>
+            <td><strong>Sub Tax (5% of Room Cost):</strong></td>
+            <td>${{ sub_tax }}</td>
+        </tr>
+        <tr>
+            <td><strong>Paid Tax (10% of Room Cost):</strong></td>
+            <td>${{ paid_tax }}</td>
+        </tr>
+        <tr>
+            <td><strong>Total Amount (Room Cost + Tax)</strong></td>
+            <td><strong>${{ total_cost }}</strong></td>
+        </tr>
+    </table>
+
+    <!-- Add a button to proceed to payment -->
+    <form action="{{ url_for('make_payment', bill_id=bill_id) }}" method="POST">
+
+        <button type="submit">Proceed to Pay</button>
+
+    </form>
+
+    <a href="{{ url_for('download_bill', bill_id=bill_id) }}" class="btn btn-primary">Download Bill</a>
+
+
+    <!-- <a href="{{ url_for('user_home') }}">Back to user_Dashboar</a> -->
+
+{% endblock %}

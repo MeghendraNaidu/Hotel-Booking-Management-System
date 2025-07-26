@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Customer Reviews</h1>
+
+{% if avg_rating %}
+    <h3>Average Rating: {{ avg_rating|round(1) }}/5</h3>
+{% endif %}
+
+{% if reviews %}
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Rating</th>
+                <th>Review</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ review[0] }}</td> <!-- Customer Name -->
+                <td>{{ review[1] }}/5</td> <!-- Rating -->
+                <td>{{ review[2] }}</td> <!-- Review -->
+                <td>{{ review[3] }}</td> <!-- Date -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No reviews yet. Be the first to share your feedback!</p>
+{% endif %}
+
+
+{% endblock %}

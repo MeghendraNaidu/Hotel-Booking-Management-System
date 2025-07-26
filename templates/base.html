@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Ichiraku</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+    <header>
+            <h1>Hotel Ichiraku</h1>
+            <nav>
+                <ul>
+                    <div><a href="/">Home</a></div>
+                </ul>
+            </nav>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        
+    </header>
+    
+    <div id="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <section class="about top" id="about">
+        <div class="right">
+            <div class="discreption">
+                <p> The Hotel Ichiraku offers luxury accommodations, providing top-tier service, elegant decor, and premium amenities. Guests can expect spacious, beautifully furnished rooms, gourmet dining options, spa and wellness facilities, and a range of personalized services. The atmosphere is refined and sophisticated, catering to guests seeking comfort, relaxation, and an exceptional level of hospitality.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container grid top">
+            <div class="box">
+                <h3>Recent News</h3>
+                <ul>
+                    <li>Eco-Friendly Initiative</li>
+                    <li>Chill and Escape in Our Natural Shelters</li>
+                    <li>Limited-Time Offer</li>
+                    <li>Live Music Concerts</li>
+                    <li>Luxury Suite Renovation</li>
+                </ul>
+            </div>
+            
+            <div class="box">
+                <h3>For Customers</h3>
+                <ul>
+                    <li>About Ichiraku</li>
+                    <li>Customer Care/Help</li>
+                    <li>Corporate Accounts</li>
+                    <li>Financial Information</li>
+                    <li>Terms & Conditions</li>
+                </ul>
+            </div>
+            
+            <div class="box">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>Agaram Main Road, Selaiyur, Tambaram, Chennai, 600073</li>
+                    <li><i class="far fa-envelope"></i>hotelichiraku@gmail.com </li>
+                    <li><i class="far fa-phone-alt"></i>9846369467 </li>
+                    <li><i class="far fa-phone-alt"></i>9870567429 </li>
+                    <li><i class="far fa-comments"></i>24/ 7 Customer Services </li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <p>&copy; 2024 Hotel Ichiraku . All rights reserved</p>
+        </div>
+        <!-- <p>&copy; 2024 Hotel Ichiraku</p> -->
+    </footer>
+
+    <script>
+        // Automatically remove flash messages after 5 seconds
+        setTimeout(function() {
+            const flashMessages = document.querySelectorAll('.flashes li');
+            flashMessages.forEach(flash => {
+                flash.style.transition = 'opacity 0.5s ease';
+                flash.style.opacity = '0';
+                setTimeout(() => flash.remove(), 500); // Completely remove after fade-out
+            });
+        }, 500); // 5000ms = 5 seconds
+    </script>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

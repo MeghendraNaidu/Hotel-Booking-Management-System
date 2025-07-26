@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Payment for Your Restaurant Bill</h1>
+
+<h3>Bill Details</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for detail in order_details %}
+        <tr>
+            <td>{{ detail[2] }}</td>
+            <td>{{ detail[3] }}</td>
+            <td>{{ detail[4] }}</td>
+            <td>{{ detail[3] * detail[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Subtotal: {{ bill[3] }}</h3>
+<h3>Tax (5%): {{ bill[4] }}</h3>
+<h3>Total Amount: {{ bill[5] }}</h3>
+
+<h3>Payment Options</h3>
+<form method="POST" action="{{ url_for('process_payment', bill_id=bill[0]) }}">
+    <label for="payment_method">Payment Method:</label>
+    <select name="payment_method" id="payment_method" required>
+        <option value="credit_card">Credit Card</option>
+        <option value="debit_card">Debit Card</option>
+        <option value="UPI Payment">UPI Payment</option>
+        <option value="cash">Cash</option>
+    </select>
+
+    <label for="payment_amount">Amount:</label>
+    <input type="number" name="payment_amount" step="0.01" value="{{ bill[5] }}" required>
+
+    <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+</form>
+
+{% endblock %}
+

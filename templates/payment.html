@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="pay" id="pay">
+    <div class="head_contant">
+        <div class="box">
+            <div class="text">
+                <h2>Make Payment</h2>
+                <form method="POST" action="{{ url_for('make_payment', bill_id=bill_id) }}">
+                    
+                    <div>
+                        <label>Total Amount:</label>
+                        <input type="text" value="{{ total_cost }}" readonly>
+                    </div>
+                    
+                    <div>
+                        <label>Payment Method:</label>
+                        <select name="payment_method" required>
+                            <option value="" disabled selected>Select Payment Method</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Cash">Cash</option>
+                            <option value="UPI Transfer">UPI Transfer</option>
+                            <option value="Debit Card">Debit Card</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Mobile Payment">Mobile Payment</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <button type="submit">Pay Now</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+        <div class="image">
+            <!-- Properly reference static images with url_for -->
+            <img src="{{ url_for('static', filename='img/p1.avif') }}" class="slide" alt="Hotel Ichiraku">
+            <!-- <img src="{{ url_for('static', filename='img/p2.avif') }}" class="slide" alt="Hotel Ichiraku"> -->
+        </div>
+
+    </div>
+</section>
+
+
+
+{% endblock %}
+
+
+
+<!-- <h2>Make Payment</h2>
+    <form method="POST" action="{{ url_for('make_payment', bill_id=bill_id) }}">
+        <div>
+            <label>Total Amount:</label>
+            <input type="text" value="{{ total_cost }}" readonly>
+        </div>
+        <div>
+            <label>Amount to Pay:</label>
+            <input type="number" name="amount_paid" step="0.01" min="0" required>
+        </div>
+        <div>
+            <label>Payment Method:</label>
+            <select name="payment_method" required>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Cash">Cash</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Mobile Payment">Mobile Payment</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Pay Now</button>
+        </div>
+    </form> -->
+

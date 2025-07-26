@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="home" id="home">
+    <div class="head_container">
+        <div class="box">
+            <div class="text">
+                <h2>Admin Dashboard</h2>
+                <ul>
+                    <li><a href="/admin/rooms">Manage Rooms</a></li>
+                
+                    <li><a href="{{ url_for('manage_restaurant') }}">Restaurant Management</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="image">
+            <!-- Properly reference static images with url_for -->
+            <img src="{{ url_for('static', filename='img/home2.jpg') }}" class="slide" alt="Hotel Ichiraku">
+        </div>
+
+        <div class="image_item">
+            <img src="{{ url_for('static', filename='img/home1.jpg') }}" alt="Image 1" class="slide" onclick="img('{{ url_for('static', filename='img/home1.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home2.jpg') }}" alt="Image 2" class="slide" onclick="img('{{ url_for('static', filename='img/home2.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home3.jpg') }}" alt="Image 3" class="slide" onclick="img('{{ url_for('static', filename='img/home3.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home4.jpg') }}" alt="Image 4" class="slide" onclick="img('{{ url_for('static', filename='img/home4.jpg') }}')">
+        </div>
+    </div>
+</section>
+
+<script>
+    function img(imageSrc) {
+        // Change the src of the main image when a thumbnail is clicked
+        document.querySelector('.image img').src = imageSrc;
+    }
+
+    function change(backgroundColor) {
+        // Change the background color dynamically
+        const line = document.querySelector('.image');
+        line.style.background = backgroundColor;
+    }
+</script>
+
+<div class="just">
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="book" id="book">
+    <div class="head_contant">
+        <div class="box">
+            <div class="text">
+                <h2>Room Booking Form</h2>
+                
+                <form method="POST" action="{{ url_for('book_room') }}">
+
+                    <label for="customer_id">Customer ID:</label>
+                    <input type="text" id="customer_id" name="customer_id" value="{{ customer_id }}" readonly><br>
+                    
+                    <label for="customer_name">Customer Name:</label>
+                    <input type="text" id="customer_name" name="customer_name" required><br>
+                    
+                    <label for="id_proof_type">ID Proof Type:</label>
+                    <select id="id_proof_type" name="id_proof_type" required>
+                        <option value="">Choose Id Proof Type</option>
+                        <option value="Aadhar Number" pattern="[0-9]{12}">Aadhar Number</option>
+                        <option value="Passport" pattern="[A-PR-WY][0-9]{8}">Passport</option>
+                        <option value="Driving Licence" pattern="[A-Za-z0-9]{15}">Driving Licence</option>
+                        <option value="other">Other</option>
+                    </select><br>
+                    
+                    <label for="id_number">ID Number:</label>
+                    <input type="text" id="id_number" name="id_number" required><br>
+                    
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" required></textarea><br>
+                    
+                    <label for="check_in_date">Check-In Date:</label>
+                    <input type="date" id="check_in" name="check_in" required><br>
+                    
+                    <label for="check_out_date">Check-Out Date:</label>
+                    <input type="date" id="check_out" name="check_out" required><br>
+
+                    <label for="room_type">Room Type</label>
+                    <select name="room_type" id="room_type" required>
+                        <option value="">Select Room Type</option>
+                        {% for room_type in ROOM_RATES %}
+                        <option value="{{ room_type }}">{{ room_type }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    <label for="room_number">Room Number:</label>
+                    <select id="room_number" name="room_number" required>
+                        <option value="">Select Room Number</option>
+                        <!-- Room numbers will be populated dynamically -->
+                    </select>
+
+                    <label for="number_of_guests">Number of Guests:</label>
+                    <select name="number_of_guests" required>
+                        <option value="">Select Number of Guests</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select><br>
+                    
+                    <label for="special_requests">Special Requests (Optional):</label>
+                    <textarea name="special_requests" rows="4" cols="50"></textarea><br>
+
+                    <label for="terms_and_conditions">
+                        <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" onclick="toggleTerms()" required>
+                        I agree to the Terms and Conditions
+                        <!-- I agree to the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a> -->
+                    </label><br>
+
+                    <div id="terms_description">
+                        <h4>Terms and Conditions</h4>
+                        <p>1. All bookings are subject to availability.</p>
+                        <p>2. Guests must provide valid identification at check-in.</p>
+                        <p>3. Cancellations within 24 hours of check-in may incur a fee.</p>
+                        <p>4. Hotel reserves the right to deny service for misconduct or policy violations.</p>
+                    </div>
+                    
+                    <input type="submit" value="Book Room">
+                    
+                    <p><a href="{{ url_for('user_home') }}">Back to user_Dashboar</a></p>
+                
+                </form>
+            </div>
+        </div>
+
+        <div class="image">
+            <!-- Properly reference static images with url_for -->
+            <img src="{{ url_for('static', filename='img/b1.jpeg') }}" class="slide" alt="Hotel Ichiraku">
+            <img src="{{ url_for('static', filename='img/b2.jpeg') }}" class="slide" alt="Hotel Ichiraku">
+        </div>
+
+    </div>
+</section>
+
+<script>
+    function toggleTerms() {
+        const termsDescription = document.getElementById('terms_description');
+        const checkbox = document.getElementById('terms_and_conditions');
+        
+        if (checkbox.checked) {
+            termsDescription.style.display = 'block';
+        } else {
+            termsDescription.style.display = 'none';
+        }
+    }
+</script>
+
+
+<script>
+    document.getElementById('room_type').addEventListener('change', function () {
+        const roomType = this.value;
+        const roomNumberDropdown = document.getElementById('room_number');
+
+        // Clear existing options
+        roomNumberDropdown.innerHTML = '<option value="">Select Room Number</option>';
+
+        if (roomType) {
+            fetch(`/get_rooms_by_type?room_type=${roomType}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.rooms.forEach(roomNumber => {
+                        const option = document.createElement('option');
+                        option.value = roomNumber;
+                        option.textContent = roomNumber;
+                        roomNumberDropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching room numbers:', error));
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('check_in').addEventListener('change', function() {
+        var checkInDate = this.value;
+        var checkOutDateInput = document.getElementById('check_out');
+    
+        // Ensure checkout date cannot be before the check-in date
+        checkOutDateInput.setAttribute('min', checkInDate);
+    
+        // Reset checkout date if it's before the new check-in date
+        if (checkOutDateInput.value < checkInDate) {
+            checkOutDateInput.value = checkInDate;
+        }
+    });
+    </script>
+
+
+{% endblock %}
+
+
+<!-- <h2>Room Booking Form</h2>
+    <form method="POST" action="{{ url_for('book_room') }}">
+
+        <label for="customer_id">Customer ID:</label>
+        <input type="text" id="customer_id" name="customer_id" value="{{ customer_id }}" readonly><br>
+        
+        <label for="customer_name">Customer Name:</label>
+        <input type="text" id="customer_name" name="customer_name" required>
+        <br>
+
+        <label for="id_proof_type">ID Proof Type:</label>
+        <select id="id_proof_type" name="id_proof_type" required>
+            <option value="">Choose Id Proof Type</option>
+            <option value="Aadhar Number">Aadhar Number</option>
+            <option value="Passport">Passport</option>
+            <option value="Driving Licence">Driving Licence</option>
+            <option value="other">Other</option>
+        </select><br>
+
+        <label for="id_number">ID Number:</label>
+        <input type="text" id="id_number" name="id_number" required>
+        <br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea>
+        <br>
+
+        <label for="check_in_date">Check-In Date:</label>
+        <input type="date" id="check_in" name="check_in" required>
+        <br>
+
+        <label for="check_out_date">Check-Out Date:</label>
+        <input type="date" id="check_out" name="check_out" required>
+        <br>
+
+        <label for="room_type">Room Type:</label>
+        <select name="room_type" required>
+            <option value="">Select Room Type</option>
+            <option value="Single">Single Room - 1500.00</option>
+            <option value="Double">Double Room - 2000.00</option>
+            <option value="Suite">Suite - 2500.00</option>
+        </select>
+        <br>
+
+        <label>Room Number:</label>
+        <select name="room_number" required>
+            {% for room in available_rooms %}
+            <option value="{{ room['room_number'] }}">{{ room['room_number'] }} - {{ room['room_type'] }}</option>
+            {% endfor %}
+        </select> -->
+
+        <!-- <label>Room Number:</label>
+        <input type="number" id="room_no" name="room_no" required><br> -->
+
+        <!-- <label for="number_of_guests">Number of Guests:</label>
+        <select name="number_of_guests" required>
+            <option value="">Select Number of Guests</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select><br>
+
+        <label for="special_requests">Special Requests (Optional):</label>
+        <textarea name="special_requests" rows="4" cols="50"></textarea>
+        <br>
+
+        <input type="submit" value="Book Room">
+
+        <p><a href="{{ url_for('user_home') }}">Back to user_Dashboar</a></p>
+    </form>
+
+    <script>
+        document.getElementById('check_in').addEventListener('change', function() {
+            var checkInDate = this.value;
+            var checkOutDateInput = document.getElementById('check_out');
+        
+            checkOutDateInput.setAttribute('min', checkInDate);
+        
+            if (checkOutDateInput.value < checkInDate) {
+                checkOutDateInput.value = checkInDate;
+            }
+        });
+        </script> -->
+        
+    <!-- <a href="{{ url_for('user_home') }}">Back to user_Dashboar</a> -->
+

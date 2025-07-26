@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="regi" id="regi">
+    <div class="head_contant">
+        <div class="box">
+            <div class="text">
+                <h2>User Registration</h2>
+                <form action="{{ url_for('user_register') }}" method="post">
+                    <label for="customer_name">Customer Name:</label>
+                    <input type="text" name="customer_name" required><br>
+                    
+                    <label for="father_name">Father's Name:</label>
+                    <input type="text" name="father_name" required><br>
+                    
+                    <label for="mobile_number">Mobile Number:</label>
+                    <input type="tel" id="mobile_number" name="mobile_number" pattern="[0-9]{10}" required>
+
+                    <label for="gender">Gender:</label>
+                    <select name="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select><br>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" required><br>
+                    
+                    <label for="nationality">Nationality:</label>
+                    <input type="text" name="nationality" required><br>
+                    
+                    <label for="security_question">Security Question:</label>
+                    <select id="security_question" name="security_question" required>
+                        <option value="What is your Date of Birth?">What is your Date of Birth?</option>
+                        <option value="What is your Best friend name?">What is your Best friend name?</option>
+                        <option value="What was the name of your first school?">What was the name of your first school?</option>
+                    </select>
+                    
+                    <label for="security_answer">Security Answer:</label>
+                    <input type="text" name="security_answer" required><br>
+
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" required><br>
+                    
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input type="password" name="confirm_password" required><br>
+                    
+                    <input type="submit" value="Register">
+                    
+                    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+                </form>
+            </div>
+        </div>
+
+        <div class="image">
+            <!-- Properly reference static images with url_for -->
+            <img src="{{ url_for('static', filename='img/re1.avif') }}" class="slide" alt="Hotel Ichiraku">
+            <img src="{{ url_for('static', filename='img/re2.avif') }}" class="slide" alt="Hotel Ichiraku">
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+
+
+
+<!-- <script>
+    function img(imageSrc) {
+        // Change the src of the main image when a thumbnail is clicked
+        document.querySelector('.image img').src = imageSrc;
+    }
+
+    function change(backgroundColor) {
+        // Change the background color dynamically
+        const line = document.querySelector('.image');
+        line.style.background = backgroundColor;
+    }
+</script> -->
+
+
+<!-- <h2>User Registration</h2>
+<form action="{{ url_for('user_register') }}" method="post">
+
+        <label for="customer_name">Customer Name:</label>
+        <input type="text" name="customer_name" required><br>
+
+        <label for="father_name">Father's Name:</label>
+        <input type="text" name="father_name" required><br>
+
+        <label for="mobile_number">Mobile Number:</label>
+        <input type="tel" id="mobile_number" name="mobile_number" pattern="[0-9]{10}" required>
+
+        <label for="gender">Gender:</label>
+        <select name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="nationality">Nationality:</label>
+        <input type="text" name="nationality" required><br>
+
+        <label for="security_question">Security Question:</label>
+        <select id="security_question" name="security_question" required>
+            <option value="What is your Date of Birth?">What is your Date of Birth?</option>
+            <option value="What is your Best friend name?">What is your Best friend name?</option>
+            <option value="What was the name of your first school?">What was the name of your first school?</option>
+        </select>
+
+        <label for="security_answer">Security Answer:</label>
+        <input type="text" name="security_answer" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" required><br>
+
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" name="confirm_password" required><br>
+
+        <input type="submit" value="Register">
+
+        <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+        
+    </form> -->
+<!-- <a href="{{ url_for('home') }}">Back to Home</a> -->

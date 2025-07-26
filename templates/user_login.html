@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<section class="home" id="home">
+    <div class="head_container">
+        <div class="box">
+            <div class="text">
+                <h2>User Login</h2>
+                <form method="POST" action="{{ url_for('user_login') }}">
+                    <label for="email">Username:</label>
+                    <input type="email" id="email" name="email" required><br>
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br>
+                    
+                    <input type="submit" value="Login">
+                    
+                    <pre><a href="/forgot_password"> Forgot Password? </a><a href="/user_register"> User Register</a></pre>
+                
+                </form>
+            </div>
+        </div>
+
+        <div class="image">
+            <!-- Properly reference static images with url_for -->
+            <img src="{{ url_for('static', filename='img/home2.jpg') }}" class="slide" alt="Hotel Ichiraku">
+        </div>
+
+        <div class="image_item">
+            <!-- Clicking on each image changes the main image -->
+            <img src="{{ url_for('static', filename='img/home1.jpg') }}" alt="Image 1" class="slide" onclick="img('{{ url_for('static', filename='img/home1.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home2.jpg') }}" alt="Image 2" class="slide" onclick="img('{{ url_for('static', filename='img/home2.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home3.jpg') }}" alt="Image 3" class="slide" onclick="img('{{ url_for('static', filename='img/home3.jpg') }}')">
+            <img src="{{ url_for('static', filename='img/home4.jpg') }}" alt="Image 4" class="slide" onclick="img('{{ url_for('static', filename='img/home4.jpg') }}')">
+        </div>
+    </div>
+</section>
+
+<script>
+    function img(imageSrc) {
+        // Change the src of the main image when a thumbnail is clicked
+        document.querySelector('.image img').src = imageSrc;
+    }
+
+    function change(backgroundColor) {
+        // Change the background color dynamically
+        const line = document.querySelector('.image');
+        line.style.background = backgroundColor;
+    }
+</script>
+
+{% endblock %}
+
+
+
+
+<!-- <h2>User Login</h2>
+    <form method="POST" action="{{ url_for('user_login') }}">
+        <label for="email">Username:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <input type="submit" value="Login">
+
+        <pre><a href="/forgot_password"> Forgot Password? </a><a href="/user_register"> User Register</a></pre>
+
+    </form> -->
+
+    <!-- <p><a href="/forgot_password">Forgot Password? &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; </a>
+    <a href="/user_register"> User Register</a></p> -->
+
+    <!-- <p><a href="/user_register">User Register</a></p> -->
+
+
+<!-- &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; -->
